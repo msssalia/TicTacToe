@@ -4,20 +4,19 @@ import javax.swing.*;
 import java.awt.*;
 
 public class DemoWindow extends JFrame {
-
+    private static final int CELL_SIZE = 50;
+    private final static int SLEEP_BETWEEN_ITERATION = 25;
     private Cell[][] cells;
-    private final int sleep;
 
-    public DemoWindow(int size, int sleep) throws HeadlessException {
-        this.sleep = sleep;
 
-        setSize(size * 100, size * 100);
+    public DemoWindow(int arraySize) throws HeadlessException {
+        setSize(arraySize * CELL_SIZE, arraySize * CELL_SIZE);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        GridLayout layout = new GridLayout(size, size);
+        GridLayout layout = new GridLayout(arraySize, arraySize);
         setLayout(layout);
 
-        initCells(size);
+        initCells(arraySize);
 
         setLocationRelativeTo(null);
         setVisible(true);
@@ -34,31 +33,15 @@ public class DemoWindow extends JFrame {
             }
         }
         try {
-            Thread.sleep(sleep);
+            Thread.sleep(SLEEP_BETWEEN_ITERATION);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public void clear() {
-        for (int i = 0; i < cells.length; i++) {
-            for (int j = 0; j < cells[i].length; j++) {
-                Cell cell = cells[i][j];
-                cell.setBackground(Color.WHITE);
-            }
-        }
-    }
 
-    public void fillLabels(char[][] board) {
-        for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board[i].length; j++) {
-                if (board[i][j] == '*') cells[i][j].getLabel().setText("*");
-            }
-        }
-    }
-
-    private void initCells(int size) {
-        cells = new Cell[size][size];
+    private void initCells(int arraySize) {
+        cells = new Cell[arraySize][arraySize];
         for (int i = 0; i < cells.length; i++) {
             for (int j = 0; j < cells[i].length; j++) {
                 Cell jCell = new Cell(i, j);
@@ -69,17 +52,13 @@ public class DemoWindow extends JFrame {
     }
 
     private static class Cell extends JPanel {
-        private final JLabel label;
 
         public Cell(int x, int y) {
             setBackground(Color.WHITE);
             setBorder(BorderFactory.createLineBorder(Color.BLACK));
-            label = new JLabel(String.format("i:%s  j:%s", x, y));
+            JLabel label = new JLabel(String.format("i:%s  j:%s", x, y));
             add(label);
         }
 
-        public JLabel getLabel() {
-            return label;
-        }
     }
 }
