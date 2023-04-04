@@ -5,15 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2c8e07ca-b387-4bbc-9dbb-b1e518b06d0c" name="Changes" comment="init 1">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/TicTacToe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/TicTacToe.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/org/example/TicTacToeTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/example/TicTacToeTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeStyleSettingsInfer">
+    <option name="done" value="true" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -36,6 +39,9 @@
       </MavenImportingSettings>
     </option>
   </component>
+  <component name="ProjectCodeStyleSettingsMigration">
+    <option name="version" value="2" />
+  </component>
   <component name="ProjectId" id="2NwjJK2buTWgQOAahk9I9CTBzaF" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -50,10 +56,12 @@
     "WebServerToolWindowFactoryState": "false",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
+    "last_opened_file_path": "C:/Users/R.Kutkin/Documents/java-tasks/TicTacToe",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
+    "ruby.rails.projectView.checked": "true",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -108,6 +116,7 @@
       <option name="presentableId" value="Default" />
       <updated>1680581968049</updated>
       <workItem from="1680581969422" duration="21766000" />
+      <workItem from="1680604318855" duration="1290000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <created>1680595309476</created>

@@ -1,7 +1,5 @@
 package org.example;
 
-import java.util.Arrays;
-import java.util.Optional;
 import java.util.Scanner;
 
 public class TicTacToe {
@@ -32,11 +30,17 @@ public class TicTacToe {
 
             System.out.println("Ходят Крестики");
             setX();
-            if (isWinner('X')) break;
+            if (isWinner('X')) {
+                System.out.println("Победили: Х");
+                break;
+            };
 
             System.out.println("ходят Нолики");
             setY();
-            if (isWinner('0')) break;
+            if (isWinner('0')) {
+                System.out.println("Победили: 0");
+                break;
+            };
         }
     }
 
@@ -138,30 +142,59 @@ public class TicTacToe {
         }
 
        */
+//        for (int i = 0; i < ticTacToe.length; i++) {
+//            for (int j = 0; j < ticTacToe.length; j++) {
+//                if (ticTacToe[i][j] == ticTacToe[i][j + 1] && (j != ticTacToe.length - 1) && ticTacToe[i][j] == c) {
+//                    countInAColumn++;
+//                } else countInAColumn = 0;
+//                if (maxCount == countInAColumn) {
+//                    System.out.println("Победили: " + c);
+//                    return true;
+//                } else if (ticTacToe[i][j] == ticTacToe[i + 1][j] && (i != ticTacToe.length - 1) && ticTacToe[i][j] == c) {
+//                    countInARow++;
+//                } else countInARow = 0;
+//                if (maxCount == countInARow) {
+//                    System.out.println("Победили: " + c);
+//                    return true;
+//                } else if (ticTacToe[i][j] == ticTacToe[i + 1][j + 1] && ticTacToe[i][j] == c && (i != ticTacToe.length - 1) && (j != ticTacToe.length - 1)) {
+//                    countInADiagonal++;
+//                } else countInADiagonal = 0;
+//                if (maxCount == countInADiagonal) {
+//                    System.out.println("Победили: " + c);
+//                    return true;
+//                }
+//
+//            }
+//
+//        }
+
+
         for (int i = 0; i < ticTacToe.length; i++) {
-            for (int j = 0; j < ticTacToe.length; j++) {
-                if (ticTacToe[i][j] == ticTacToe[i][j + 1] && (j != ticTacToe.length - 1) && ticTacToe[i][j] == c) {
-                    countInAColumn++;
-                } else countInAColumn = 0;
-                if (maxCount == countInAColumn) {
-                    System.out.println("Победили: " + c);
-                    return true;
-                } else if (ticTacToe[i][j] == ticTacToe[i + 1][j] && (i != ticTacToe.length - 1) && ticTacToe[i][j] == c) {
-                    countInARow++;
-                } else countInARow = 0;
-                if (maxCount == countInARow) {
-                    System.out.println("Победили: " + c);
-                    return true;
-                } else if (ticTacToe[i][j] == ticTacToe[i + 1][j + 1] && ticTacToe[i][j] == c && (i != ticTacToe.length - 1) && (j != ticTacToe.length - 1)) {
-                    countInADiagonal++;
-                } else countInADiagonal = 0;
-                if (maxCount == countInADiagonal) {
-                    System.out.println("Победили: " + c);
+
+            int row = 0;
+            int column = 0;
+            for (int j = 0; j < ticTacToe[i].length; j++) {
+
+                if (ticTacToe[i][j] == c) {
+                    row++;
+                } else {
+                    row = 0;
+                }
+
+                if (row == maxCount) {
                     return true;
                 }
 
-            }
+                if (ticTacToe[j][i] == c) {
+                    column++;
+                } else {
+                    column = 0;
+                }
 
+                if (column == maxCount) {
+                    return true;
+                }
+            }
         }
 
         return false;
