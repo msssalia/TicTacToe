@@ -5,15 +5,26 @@ import java.util.Optional;
 import java.util.Scanner;
 
 public class TicTacToe {
-    private char[][] ticTacToe = {
-            {'.', '.', '.'},
-            {'.', '.', '.'},
-            {'.', '.', '.'}
-    };
+    private char[][] ticTacToe;
+    private final int size;
+
+    private int countInARow;
+    private int countInAColumn;
+    private int countInADiagonal;
+    private final int maxCount;
     private Scanner in = new Scanner(System.in);
     private int x;
     private int y;
 
+    public TicTacToe() {
+        this(3, 3);
+    }
+
+    public TicTacToe(int size, int maxCount) {
+        this.size = size;
+        this.maxCount = maxCount;
+        initArray();
+    }
 
     public void startGame() {
         gameBoard();
@@ -21,11 +32,11 @@ public class TicTacToe {
 
             System.out.println("Ходят Крестики");
             setX();
-            if (!winner('X')) break;
+            if (isWinner('X')) break;
 
             System.out.println("ходят Нолики");
             setY();
-            if (!winner('0')) break;
+            if (isWinner('0')) break;
         }
     }
 
@@ -37,6 +48,15 @@ public class TicTacToe {
                 System.out.print(ticTacToe[i][j] + "\t");
             }
             System.out.println();
+        }
+    }
+
+    private void initArray() {
+        ticTacToe = new char[size][size];
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                ticTacToe[i][j] = '.';
+            }
         }
     }
 
@@ -71,7 +91,7 @@ public class TicTacToe {
         }
     }
 
-    private boolean winner(char c) {
+    private boolean isWinner(char c) {
        /* if (((ticTacToe[0][0] == c) && (ticTacToe[0][1] == c) && (ticTacToe[0][2] == c)) ||     // горизонтальные случаи победы
                 ((ticTacToe[1][0] == c) && (ticTacToe[1][1] == c) && (ticTacToe[1][2] == c)) || // горизонтальные случаи победы
                 ((ticTacToe[2][0] == c) && (ticTacToe[2][1] == c) && (ticTacToe[2][2] == c)) || // горизонтальные случаи победы
@@ -91,11 +111,55 @@ public class TicTacToe {
         return true;
     }
 */
+        /*
+            {'.', '.', '.'},
+            {'.', '.', '.'},
+            {'.', '.', '.'}
+         */
+     /*  for (int i = 1; i < ticTacToe.length - 1; i++) {
+            for (int j = 1; j < ticTacToe.length - 1; j++) {
+                if (ticTacToe[i][j] == c && ticTacToe[i][j - 1] == c && ticTacToe[i][j + 1] == c) {
+                    System.out.println("Победили: " + c);
+                    return true;
+                }
+                else if (ticTacToe[i - 1][j - 1] == c && ticTacToe[i][j - 1] == c && ticTacToe[i + 1][j - 1] == c) {
+                    System.out.println("Победили: " + c);
+                    return true;
+                } else if (ticTacToe[i][j] == c && ticTacToe[i - 1][j - 1] == c && ticTacToe[i + 1][j + 1] == c) {
+                    System.out.println("Победили: " + c);
+                    return true;
+                }
+                else if (ticTacToe[i - 1][j + 1] == c && ticTacToe[i][j] == c && ticTacToe[i + 1][j - 1] == c) {
+                    System.out.println("Победили: " + c);
+                    return true;
+                }
+            }
+
+        }
+
+       */
         for (int i = 0; i < ticTacToe.length; i++) {
             for (int j = 0; j < ticTacToe.length; j++) {
-                if (ticTacToe[i][j] == 'X') {
-
+                if (ticTacToe[i][j] == ticTacToe[i][j + 1] && (j != ticTacToe.length - 1) && ticTacToe[i][j] == c) {
+                    countInAColumn++;
+                } else countInAColumn = 0;
+                if (maxCount == countInAColumn) {
+                    System.out.println("Победили: " + c);
+                    return true;
+                } else if (ticTacToe[i][j] == ticTacToe[i + 1][j] && (i != ticTacToe.length - 1) && ticTacToe[i][j] == c) {
+                    countInARow++;
+                } else countInARow = 0;
+                if (maxCount == countInARow) {
+                    System.out.println("Победили: " + c);
+                    return true;
+                } else if (ticTacToe[i][j] == ticTacToe[i + 1][j + 1] && ticTacToe[i][j] == c && (i != ticTacToe.length - 1) && (j != ticTacToe.length - 1)) {
+                    countInADiagonal++;
+                } else countInADiagonal = 0;
+                if (maxCount == countInADiagonal) {
+                    System.out.println("Победили: " + c);
+                    return true;
                 }
+
             }
 
         }
@@ -103,3 +167,4 @@ public class TicTacToe {
         return false;
     }
 }
+
