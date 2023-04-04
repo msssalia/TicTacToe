@@ -1,181 +1,97 @@
 package org.example;
 
-import java.util.Scanner;
-
 public class TicTacToe {
-    private char[][] ticTacToe;
+    private char[][] board;
     private final int size;
 
-    private int countInARow;
-    private int countInAColumn;
-    private int countInADiagonal;
     private final int maxCount;
-    private Scanner in = new Scanner(System.in);
     private int x;
     private int y;
 
-    public TicTacToe() {
-        this(3, 3);
+    private final Player player1;
+    private final Player player2;
+
+    public TicTacToe(Player player1, Player player2) {
+        this(3, 3, player1, player2);
     }
 
-    public TicTacToe(int size, int maxCount) {
+    public TicTacToe(int size, Player player1, Player player2) {
+        this(size, 3, player1, player2);
+    }
+
+    public TicTacToe(int size, int maxCount, Player player1, Player player2) {
         this.size = size;
         this.maxCount = maxCount;
-        initArray();
+        this.player1 = player1;
+        this.player2 = player2;
+        initBoard();
     }
 
     public void startGame() {
-        gameBoard();
+        renderBoard();
         while (true) {
 
-            System.out.println("Ходят Крестики");
-            setX();
-            if (isWinner('X')) {
-                System.out.println("Победили: Х");
+            fillBoard(player1);
+            if (isWinner(player1.getaChar())) {
+                System.out.println("Победили: " + player1.getaChar());
                 break;
-            };
+            }
 
-            System.out.println("ходят Нолики");
-            setY();
-            if (isWinner('0')) {
-                System.out.println("Победили: 0");
+            fillBoard(player2);
+            if (isWinner(player2.getaChar())) {
+                System.out.println("Победили: " + player2.getaChar());
                 break;
-            };
+            }
         }
     }
 
-    ;
-
-    private void gameBoard() {
-        for (int i = 0; i < ticTacToe.length; i++) {
-            for (int j = 0; j < ticTacToe.length; j++) {
-                System.out.print(ticTacToe[i][j] + "\t");
+    private void renderBoard() {
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board.length; j++) {
+                System.out.print(board[i][j] + "\t");
             }
             System.out.println();
         }
     }
 
-    private void initArray() {
-        ticTacToe = new char[size][size];
+    private void initBoard() {
+        board = new char[size][size];
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-                ticTacToe[i][j] = '.';
+                board[i][j] = '.';
             }
         }
     }
 
-    // задача координат для X
-    private void setX() {
-        System.out.println("Выберите строку");
-        x = in.nextInt() - 1;
-        System.out.println("Выберите столбец");
-        y = in.nextInt() - 1;
-        if (ticTacToe[x][y] == '0' || ticTacToe[x][y] == 'X') {
-            System.out.println("поле уже занято, введите другие значения");
-            setX();
-        } else {
-            ticTacToe[x][y] = 'X';
-            gameBoard();
-        }
-    }
+    private void fillBoard(Player player) {
+        System.out.println("Ход: " + player.getaChar());
 
+        Position position = player.getPosition();
+        int x = position.getX();
+        int y = position.getY();
 
-    // задача координат для 0
-    private void setY() {
-        System.out.println("Выберите строку");
-        x = in.nextInt() - 1;
-        System.out.println("Выберите столбец");
-        y = in.nextInt() - 1;
-        if (ticTacToe[x][y] == 'X' || ticTacToe[x][y] == '0') {
-            System.out.println("поле уже занято, введите другие значения");
-            setY();
-        } else {
-            ticTacToe[x][y] = '0';
-            gameBoard();
+        if (x < 0 || y < 0 || x > (size - 1) || y > (size - 1)){
+            System.out.println("Введите коректные данные");
+            fillBoard(player);
         }
+
+        if (board[x][y] != '.'){
+            System.out.println("Поле уже занято, введите другие значения");
+            fillBoard(player);
+        }
+
+        board[x][y] = player.getaChar();
     }
 
     private boolean isWinner(char c) {
-       /* if (((ticTacToe[0][0] == c) && (ticTacToe[0][1] == c) && (ticTacToe[0][2] == c)) ||     // горизонтальные случаи победы
-                ((ticTacToe[1][0] == c) && (ticTacToe[1][1] == c) && (ticTacToe[1][2] == c)) || // горизонтальные случаи победы
-                ((ticTacToe[2][0] == c) && (ticTacToe[2][1] == c) && (ticTacToe[2][2] == c)) || // горизонтальные случаи победы
-                ((ticTacToe[0][0] == c) && (ticTacToe[1][0] == c) && (ticTacToe[2][0] == c)) || // вертикальные случаи победы
-                ((ticTacToe[0][1] == c) && (ticTacToe[1][1] == c) && (ticTacToe[2][1] == c)) || // вертикальные случаи победы
-                ((ticTacToe[0][2] == c) && (ticTacToe[1][2] == c) && (ticTacToe[2][2] == c)) || // вертикальные случаи победы
-                ((ticTacToe[0][0] == c) && (ticTacToe[1][1] == c) && (ticTacToe[2][2] == c)) || // диагональные случаи победы
-                ((ticTacToe[0][2] == c) && (ticTacToe[1][1] == c) && (ticTacToe[2][0] == c))) { // диагональные случаи победы
-            System.out.println("Победили: " + c);
-            return false;
-        } else if ((ticTacToe[0][0] != '.') && (ticTacToe[0][1] != '.') && (ticTacToe[0][2] != '.') &&
-                (ticTacToe[1][0] != '.') && (ticTacToe[1][1] != '.') && (ticTacToe[1][2] != '.') &&
-                (ticTacToe[2][0] != '.') && (ticTacToe[2][1] != '.') && (ticTacToe[2][2] != '.')) {
-            System.out.println("ничья");
-            return false;
-        }
-        return true;
-    }
-*/
-        /*
-            {'.', '.', '.'},
-            {'.', '.', '.'},
-            {'.', '.', '.'}
-         */
-     /*  for (int i = 1; i < ticTacToe.length - 1; i++) {
-            for (int j = 1; j < ticTacToe.length - 1; j++) {
-                if (ticTacToe[i][j] == c && ticTacToe[i][j - 1] == c && ticTacToe[i][j + 1] == c) {
-                    System.out.println("Победили: " + c);
-                    return true;
-                }
-                else if (ticTacToe[i - 1][j - 1] == c && ticTacToe[i][j - 1] == c && ticTacToe[i + 1][j - 1] == c) {
-                    System.out.println("Победили: " + c);
-                    return true;
-                } else if (ticTacToe[i][j] == c && ticTacToe[i - 1][j - 1] == c && ticTacToe[i + 1][j + 1] == c) {
-                    System.out.println("Победили: " + c);
-                    return true;
-                }
-                else if (ticTacToe[i - 1][j + 1] == c && ticTacToe[i][j] == c && ticTacToe[i + 1][j - 1] == c) {
-                    System.out.println("Победили: " + c);
-                    return true;
-                }
-            }
-
-        }
-
-       */
-//        for (int i = 0; i < ticTacToe.length; i++) {
-//            for (int j = 0; j < ticTacToe.length; j++) {
-//                if (ticTacToe[i][j] == ticTacToe[i][j + 1] && (j != ticTacToe.length - 1) && ticTacToe[i][j] == c) {
-//                    countInAColumn++;
-//                } else countInAColumn = 0;
-//                if (maxCount == countInAColumn) {
-//                    System.out.println("Победили: " + c);
-//                    return true;
-//                } else if (ticTacToe[i][j] == ticTacToe[i + 1][j] && (i != ticTacToe.length - 1) && ticTacToe[i][j] == c) {
-//                    countInARow++;
-//                } else countInARow = 0;
-//                if (maxCount == countInARow) {
-//                    System.out.println("Победили: " + c);
-//                    return true;
-//                } else if (ticTacToe[i][j] == ticTacToe[i + 1][j + 1] && ticTacToe[i][j] == c && (i != ticTacToe.length - 1) && (j != ticTacToe.length - 1)) {
-//                    countInADiagonal++;
-//                } else countInADiagonal = 0;
-//                if (maxCount == countInADiagonal) {
-//                    System.out.println("Победили: " + c);
-//                    return true;
-//                }
-//
-//            }
-//
-//        }
-
-
-        for (int i = 0; i < ticTacToe.length; i++) {
+        for (int i = 0; i < board.length; i++) {
 
             int row = 0;
             int column = 0;
-            for (int j = 0; j < ticTacToe[i].length; j++) {
 
-                if (ticTacToe[i][j] == c) {
+            for (int j = 0; j < board[i].length; j++) {
+
+                if (board[i][j] == c) {
                     row++;
                 } else {
                     row = 0;
@@ -185,7 +101,7 @@ public class TicTacToe {
                     return true;
                 }
 
-                if (ticTacToe[j][i] == c) {
+                if (board[j][i] == c) {
                     column++;
                 } else {
                     column = 0;

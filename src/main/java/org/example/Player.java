@@ -1,25 +1,16 @@
 package org.example;
 
-public class Player {
-    String name;
-    String side;
-    public Player(String name,String side){
+public abstract class Player {
 
-    }
-    public String getName() {
-        return name;
+    private final char aChar;
+
+    public Player(char aChar) {
+        this.aChar = aChar;
     }
 
-    public String getSide() {
-        return side;
+    public char getaChar() {
+        return aChar;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setSide(String side) {
-        this.side = side;
-    }
-
+    public abstract Position getPosition();
 }
