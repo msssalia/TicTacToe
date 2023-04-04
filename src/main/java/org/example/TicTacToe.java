@@ -72,26 +72,15 @@ public class TicTacToe {
     }
 
     private boolean winner(char c) {
-        if (((ticTacToe[0][0] == 'X') && (ticTacToe[0][1] == 'X') && (ticTacToe[0][2] == 'X')) ||     // горизонтальные случаи победы
-                ((ticTacToe[1][0] == 'X') && (ticTacToe[1][1] == 'X') && (ticTacToe[1][2] == 'X')) || // горизонтальные случаи победы
-                ((ticTacToe[2][0] == 'X') && (ticTacToe[2][1] == 'X') && (ticTacToe[2][2] == 'X')) || // горизонтальные случаи победы
-                ((ticTacToe[0][0] == 'X') && (ticTacToe[1][0] == 'X') && (ticTacToe[2][0] == 'X')) || // вертикальные случаи победы
-                ((ticTacToe[0][1] == 'X') && (ticTacToe[1][1] == 'X') && (ticTacToe[2][1] == 'X')) || // вертикальные случаи победы
-                ((ticTacToe[0][2] == 'X') && (ticTacToe[1][2] == 'X') && (ticTacToe[2][2] == 'X')) || // вертикальные случаи победы
-                ((ticTacToe[0][0] == 'X') && (ticTacToe[1][1] == 'X') && (ticTacToe[2][2] == 'X')) || // диагональные случаи победы
-                ((ticTacToe[0][2] == 'X') && (ticTacToe[1][1] == 'X') && (ticTacToe[2][0] == 'X'))) { // диагональные случаи победы
-            System.out.println("победили Крестики");
-            return false;
-        } else if (((ticTacToe[0][0] == '0') && (ticTacToe[0][1] == '0') && (ticTacToe[0][2] == '0')) ||     // горизонтальные случаи победы
-                ((ticTacToe[1][0] == '0') && (ticTacToe[1][1] == '0') && (ticTacToe[1][2] == '0')) || // горизонтальные случаи победы
-                ((ticTacToe[2][0] == '0') && (ticTacToe[2][1] == '0') && (ticTacToe[2][2] == '0')) || // горизонтальные случаи победы
-                ((ticTacToe[0][0] == '0') && (ticTacToe[1][0] == '0') && (ticTacToe[2][0] == '0')) || // вертикальные случаи победы
-                ((ticTacToe[0][1] == '0') && (ticTacToe[1][1] == '0') && (ticTacToe[2][1] == '0')) || // вертикальные случаи победы
-                ((ticTacToe[0][2] == '0') && (ticTacToe[1][2] == '0') && (ticTacToe[2][2] == '0')) || // вертикальные случаи победы
-                ((ticTacToe[0][0] == '0') && (ticTacToe[1][1] == '0') && (ticTacToe[2][2] == '0')) || // диагональные случаи победы
-                ((ticTacToe[0][2] == '0') && (ticTacToe[1][1] == '0') && (ticTacToe[2][0] == '0'))) { // диагональные случаи победы
-            System.out.println("победили Нолики");
-
+       /* if (((ticTacToe[0][0] == c) && (ticTacToe[0][1] == c) && (ticTacToe[0][2] == c)) ||     // горизонтальные случаи победы
+                ((ticTacToe[1][0] == c) && (ticTacToe[1][1] == c) && (ticTacToe[1][2] == c)) || // горизонтальные случаи победы
+                ((ticTacToe[2][0] == c) && (ticTacToe[2][1] == c) && (ticTacToe[2][2] == c)) || // горизонтальные случаи победы
+                ((ticTacToe[0][0] == c) && (ticTacToe[1][0] == c) && (ticTacToe[2][0] == c)) || // вертикальные случаи победы
+                ((ticTacToe[0][1] == c) && (ticTacToe[1][1] == c) && (ticTacToe[2][1] == c)) || // вертикальные случаи победы
+                ((ticTacToe[0][2] == c) && (ticTacToe[1][2] == c) && (ticTacToe[2][2] == c)) || // вертикальные случаи победы
+                ((ticTacToe[0][0] == c) && (ticTacToe[1][1] == c) && (ticTacToe[2][2] == c)) || // диагональные случаи победы
+                ((ticTacToe[0][2] == c) && (ticTacToe[1][1] == c) && (ticTacToe[2][0] == c))) { // диагональные случаи победы
+            System.out.println("Победили: " + c);
             return false;
         } else if ((ticTacToe[0][0] != '.') && (ticTacToe[0][1] != '.') && (ticTacToe[0][2] != '.') &&
                 (ticTacToe[1][0] != '.') && (ticTacToe[1][1] != '.') && (ticTacToe[1][2] != '.') &&
@@ -101,7 +90,16 @@ public class TicTacToe {
         }
         return true;
     }
+*/
+        for (int i = 0; i < ticTacToe.length; i++) {
+            for (int j = 0; j < ticTacToe.length; j++) {
+                if (ticTacToe[i][j] == 'X') {
 
+                }
+            }
 
+        }
 
+        return false;
+    }
 }
