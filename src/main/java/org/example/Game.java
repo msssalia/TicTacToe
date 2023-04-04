@@ -1,25 +1,23 @@
 package org.example;
 
-public class TicTacToe {
+public class Game {
     private char[][] board;
     private final int size;
 
     private final int maxCount;
-    private int x;
-    private int y;
 
     private final Player player1;
     private final Player player2;
 
-    public TicTacToe(Player player1, Player player2) {
+    public Game(Player player1, Player player2) {
         this(3, 3, player1, player2);
     }
 
-    public TicTacToe(int size, Player player1, Player player2) {
+    public Game(int size, Player player1, Player player2) {
         this(size, 3, player1, player2);
     }
 
-    public TicTacToe(int size, int maxCount, Player player1, Player player2) {
+    public Game(int size, int maxCount, Player player1, Player player2) {
         this.size = size;
         this.maxCount = maxCount;
         this.player1 = player1;
@@ -28,17 +26,18 @@ public class TicTacToe {
     }
 
     public void startGame() {
-        renderBoard();
         while (true) {
 
             fillBoard(player1);
             if (isWinner(player1.getaChar())) {
+                renderBoard();
                 System.out.println("Победили: " + player1.getaChar());
                 break;
             }
 
             fillBoard(player2);
             if (isWinner(player2.getaChar())) {
+                renderBoard();
                 System.out.println("Победили: " + player2.getaChar());
                 break;
             }
@@ -64,6 +63,7 @@ public class TicTacToe {
     }
 
     private void fillBoard(Player player) {
+        renderBoard();
         System.out.println("Ход: " + player.getaChar());
 
         Position position = player.getPosition();

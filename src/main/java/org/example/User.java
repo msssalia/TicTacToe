@@ -25,9 +25,8 @@ public class User extends Player {
 
     private int getNextInt() {
         String next = scanner.next();
-
         try {
-            return Integer.parseInt(next);
+            return Integer.parseInt(next) - 1;
         } catch (Exception e) {
             System.out.println("Ошибка ввода");
         }
