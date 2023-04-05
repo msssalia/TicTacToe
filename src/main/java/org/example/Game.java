@@ -28,14 +28,16 @@ public class Game {
     public void startGame() {
         while (true) {
 
-            fillBoard(player1);
+            while (!fillBoard(player1));
+
             if (isWinner(player1.getaChar())) {
                 renderBoard();
                 System.out.println("Победили: " + player1.getaChar());
                 break;
             }
 
-            fillBoard(player2);
+            while (!fillBoard(player2));
+
             if (isWinner(player2.getaChar())) {
                 renderBoard();
                 System.out.println("Победили: " + player2.getaChar());
@@ -62,7 +64,7 @@ public class Game {
         }
     }
 
-    private void fillBoard(Player player) {
+    private boolean fillBoard(Player player) {
         renderBoard();
         System.out.println("Ход: " + player.getaChar());
 
@@ -72,24 +74,24 @@ public class Game {
 
         if (x < 0 || y < 0 || x > (size - 1) || y > (size - 1)) {
             System.out.println("Введите коректные данные");
-            fillBoard(player);
+            return false;
         }
 
         if (board[x][y] != '.') {
             System.out.println("Поле уже занято, введите другие значения");
-            fillBoard(player);
+            return false;
         }
 
         board[x][y] = player.getaChar();
+        return true;
     }
 
     private boolean isWinner(char c) {
         for (int i = 0; i < board.length; i++) {
 
-            int k = 0;
             int row = 0;
             int column = 0;
-            int diagonal = 0;
+
 
             for (int j = 0; j < board.length; j++) {
 
@@ -112,36 +114,62 @@ public class Game {
                 if (column == maxCount) {
                     return true;
                 }
-                for (i = 0; i < board.length; i++) {
-                    for (j = 0; j < board.length - i; j++) {
-                        if (board[i + j][j] == c) {
-                            diagonal++;
-                        } else {
-                            diagonal = 0;
-                        }
-                        if (diagonal == maxCount) {
-                            return true;
-                        }
-                    }
-                }
-                for (i = 1; i < board.length; i++) {
-                    for (j = 0; j < board.length - i; j++) {
-                        if (board[j][j + i] == c) {
-                            diagonal++;
-                        } else {
-                            diagonal = 0;
-                        }
-                        if (diagonal == maxCount) {
-                            return true;
-                        }
-                    }
-
-                }
 
             }
 
         }
 
+        int diagonal = 0;
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board.length - i; j++) {
+                if (board[i + j][j] == c) {
+
+                    diagonal++;
+                } else {
+                    diagonal = 0;
+                }
+                if (diagonal == maxCount) {
+                    return true;
+                }
+            }
+        }
+        for (int i = 1; i < board.length; i++) {
+            for (int j = 0; j < board.length - i; j++) {
+                if (board[j][j + i] == c) {
+                    diagonal++;
+                } else {
+                    diagonal = 0;
+                }
+                if (diagonal == maxCount) {
+                    return true;
+                }
+            }
+
+        }
+        for (int k = 0; k < board.length; k++) {
+            for (int i = (board.length - 1) - k, j = 0; i > -1 && j < board.length - k; i--, j++) {
+                if (board[i][j] == c) {
+                    diagonal++;
+                } else {
+                    diagonal = 0;
+                }
+                if (diagonal == maxCount) {
+                    return true;
+                }
+            }
+        }
+        for (int k = 0; k < board.length - 1; k++) {
+            for (int i = (board.length - 1), j = (1 + k); i > k && j < board.length; i--, j++) {
+                if (board[i][j] == c) {
+                    diagonal++;
+                } else {
+                    diagonal = 0;
+                }
+                if (diagonal == maxCount) {
+                    return true;
+                }
+            }
+        }
         return false;
     }
 

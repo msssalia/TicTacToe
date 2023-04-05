@@ -24,13 +24,17 @@ public class User extends Player {
     }
 
     private int getNextInt() {
-        String next = scanner.next();
-        try {
-            return Integer.parseInt(next) - 1;
-        } catch (Exception e) {
-            System.out.println("Ошибка ввода");
+        while (true){
+            String next = scanner.next();
+
+            try {
+                int value = Integer.parseInt(next) - 1;
+                System.out.println("Ok!");
+                return value;
+            } catch (Exception e) {
+                System.out.println("Ошибка ввода");
+            }
+            System.out.println("Еще разок...");
         }
-        System.out.println("Еще разок...");
-        return getNextInt();
     }
 }
