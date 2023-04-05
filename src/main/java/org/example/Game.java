@@ -70,12 +70,12 @@ public class Game {
         int x = position.getX();
         int y = position.getY();
 
-        if (x < 0 || y < 0 || x > (size - 1) || y > (size - 1)){
+        if (x < 0 || y < 0 || x > (size - 1) || y > (size - 1)) {
             System.out.println("Введите коректные данные");
             fillBoard(player);
         }
 
-        if (board[x][y] != '.'){
+        if (board[x][y] != '.') {
             System.out.println("Поле уже занято, введите другие значения");
             fillBoard(player);
         }
@@ -86,10 +86,12 @@ public class Game {
     private boolean isWinner(char c) {
         for (int i = 0; i < board.length; i++) {
 
+            int k = 0;
             int row = 0;
             int column = 0;
+            int diagonal = 0;
 
-            for (int j = 0; j < board[i].length; j++) {
+            for (int j = 0; j < board.length; j++) {
 
                 if (board[i][j] == c) {
                     row++;
@@ -110,10 +112,45 @@ public class Game {
                 if (column == maxCount) {
                     return true;
                 }
+                for (i = 0; i < board.length; i++) {
+                    for (j = 0; j < board.length - i; j++) {
+                        if (board[i + j][j] == c) {
+                            diagonal++;
+                        } else {
+                            diagonal = 0;
+                        }
+                        if (diagonal == maxCount) {
+                            return true;
+                        }
+                    }
+                }
+                for (i = 1; i < board.length; i++) {
+                    for (j = 0; j < board.length - i; j++) {
+                        if (board[j][j + i] == c) {
+                            diagonal++;
+                        } else {
+                            diagonal = 0;
+                        }
+                        if (diagonal == maxCount) {
+                            return true;
+                        }
+                    }
+
+                }
+
             }
+
         }
 
         return false;
     }
+
 }
 
+
+/*
+00 01 02 03
+10 11 12 13
+20 21 22 23
+30 31 32 33
+*/
