@@ -9,13 +9,6 @@ public class Game {
     private final Player player1;
     private final Player player2;
 
-    public Game(Player player1, Player player2) {
-        this(3, 3, player1, player2);
-    }
-
-    public Game(int size, Player player1, Player player2) {
-        this(size, 3, player1, player2);
-    }
 
     public Game(int size, int maxCount, Player player1, Player player2) {
         this.size = size;
@@ -28,7 +21,7 @@ public class Game {
     public void startGame() {
         while (true) {
 
-            while (!fillBoard(player1));
+            while (!fillBoard(player1)) ;
 
             if (isWinner(player1.getaChar())) {
                 renderBoard();
@@ -36,11 +29,17 @@ public class Game {
                 break;
             }
 
-            while (!fillBoard(player2));
+            while (!fillBoard(player2)) ;
 
             if (isWinner(player2.getaChar())) {
                 renderBoard();
                 System.out.println("Победили: " + player2.getaChar());
+                break;
+            }
+
+            if(isDraw() == true ) {
+                renderBoard();
+                System.out.println("Ничья!");
                 break;
             }
         }
@@ -87,6 +86,13 @@ public class Game {
     }
 
     private boolean isWinner(char c) {
+        if (isColumnOrRawWin(c) == true || isMainDiagonalWin(c) == true || isSecondaryDiagonalWin(c) == true) {
+            return true;
+        } else return false;
+
+    }
+
+    private boolean isColumnOrRawWin(char c) {
         for (int i = 0; i < board.length; i++) {
 
             int row = 0;
@@ -118,7 +124,10 @@ public class Game {
             }
 
         }
+        return false;
+    }
 
+    private boolean isMainDiagonalWin(char c) { //ошибка при переходе на новую диагональ оставляет счетчик прежним
         int diagonal = 0;
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board.length - i; j++) {
@@ -146,6 +155,11 @@ public class Game {
             }
 
         }
+        return false;
+    }
+
+    private boolean isSecondaryDiagonalWin(char c) { //ошибка при переходе на новую диагональ оставляет счетчик прежним
+        int diagonal = 0;
         for (int k = 0; k < board.length; k++) {
             for (int i = (board.length - 1) - k, j = 0; i > -1 && j < board.length - k; i--, j++) {
                 if (board[i][j] == c) {
@@ -173,12 +187,18 @@ public class Game {
         return false;
     }
 
+    private boolean isDraw() {
+        int count = 0;
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board.length; j++) {
+                if (board[i][j] != '.') {
+                    count++;
+                } else count = 0;
+            }
+            if (count == size*size) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
-
-
-/*
-00 01 02 03
-10 11 12 13
-20 21 22 23
-30 31 32 33
-*/
